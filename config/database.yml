@@ -18,8 +18,9 @@ development:
   adapter: postgresql
   encoding: unicode
   database: kontax_development
+  host: localhost
   pool: 5
-  username: kontax
+  username: zacksiri
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -47,14 +48,16 @@ test:
   adapter: postgresql
   encoding: unicode
   database: kontax_test
+  host: localhost
   pool: 5
-  username: kontax
+  username: zacksiri
   password:
 
 production:
   adapter: postgresql
   encoding: unicode
   database: kontax_production
+  host: localhost
   pool: 5
-  username: kontax
+  username: zacksiri
   password:
