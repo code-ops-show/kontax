@@ -1,7 +1,7 @@
 PATH
   remote: /Users/zacksiri/Repositories/transponder
   specs:
-    transponder (0.8.0)
+    transponder (0.8.2)
       coffee-rails (>= 3.2)
 
 GEM
