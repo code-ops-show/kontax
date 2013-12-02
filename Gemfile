@@ -8,7 +8,7 @@ gem 'pg'
 gem 'pry'
 gem 'devise'
 
-gem 'transponder', path: '/Users/zacksiri/Repositories/transponder'
+gem 'transponder', '~> 0.9.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
