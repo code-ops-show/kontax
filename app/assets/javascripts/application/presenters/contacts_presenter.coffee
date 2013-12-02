@@ -3,4 +3,6 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
   module: 'application'
 
   index: ->
+    $(@element).hide()
     $(@element).html(@response)
+    $(@element).fadeIn(500)
