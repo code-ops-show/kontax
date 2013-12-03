@@ -8,9 +8,11 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    respond_with @contact
   end
 
   def edit
     @contact = Contact.where(id: params[:id]).first
+    respond_with @contact
   end
 end

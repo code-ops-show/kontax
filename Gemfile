@@ -7,9 +7,9 @@ gem 'rails', '4.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'pry'
-gem 'devise'
+gem 'bootstrap-sass', '~> 3.0.2.0'
 
-gem 'transponder', '~> 0.9.0'
+gem 'transponder', '~> 0.9.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -37,6 +37,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+
+group :development do 
+  gem 'quiet_assets'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

@@ -1,4 +1,14 @@
-<%= content_tag_for :li, contact do %>
-  <%= contact.name %>
-  <%= contact.email %>
+<%= div_for contact, class: 'col-md-3' do %>
+  <div>
+    <div class='name-tag'>
+      <%= contact.name %>
+    </div>
+    <div class='detail'>
+      <%= contact.email %>
+    </div>
+    <div class='actions'>
+      <%= link_to "Edit", edit_contact_path(contact), remote: true, class: 'btn btn-xs btn-default' %>
+      <%= link_to "Delete", contact_path(contact), method: :delete, remote: true, class: 'btn btn-xs btn-danger' %>
+    </div>
+  </div>
 <% end %>

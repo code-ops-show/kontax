@@ -7,8 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= render 'navigation' %>
+  <div class='container'>
+    <%= yield %>
+  </div>
+  <div id='modal-box' class='modal fade'></div>
 </body>
 </html>
