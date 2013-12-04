@@ -15,4 +15,18 @@ class ContactsController < ApplicationController
     @contact = Contact.where(id: params[:id]).first
     respond_with @contact
   end
+
+  def update
+    @contact = Contact.where(id: params[:id]).first
+    if @contact.update_attributes(contact_params)
+      respond_with @contact
+    else
+      xms_error @contact
+    end
+  end
+
+private
+  def contact_params
+    params.require(:contact).permit(:name, :email)
+  end
 end
