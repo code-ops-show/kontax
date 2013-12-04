@@ -11,6 +11,15 @@ class ContactsController < ApplicationController
     respond_with @contact
   end
 
+  def create 
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      respond_with @contact
+    else
+      xms_error @contact
+    end
+  end
+
   def edit
     @contact = Contact.where(id: params[:id]).first
     respond_with @contact

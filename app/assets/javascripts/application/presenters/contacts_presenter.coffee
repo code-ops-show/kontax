@@ -9,6 +9,13 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
     $(@element).html(@response)
     $(@element).modal()
 
+  new: ->
+    @edit()
+
+  create: ->
+    $(@element).append(@response)
+    $("#modal-box").modal('toggle')
+
   update: ->
     $(@element).replaceWith(@response)
     $('#modal-box').modal('toggle')
@@ -19,3 +26,6 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
         $("input#contact_#{key}").tooltip
           title: value[0]
         $("input#contact_#{key}").tooltip('show')
+
+    create: (errors, element) ->
+      @update(errors, element)

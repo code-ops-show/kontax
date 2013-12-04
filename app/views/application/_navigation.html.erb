@@ -16,6 +16,14 @@
       <ul class="nav navbar-nav">
         <%= activeable_nav('Contacts', contacts_path) %>
       </ul>
+
+      <ul class='nav navbar-nav navbar-right'>
+        <li>
+          <%= link_to new_contact_path, remote: true do %>
+            <span class='glyphicon glyphicon-plus'></span> Add Contact
+          <% end %>
+        </li>
+      </ul>
     </div><!-- /.navbar-collapse -->
   </div>
 </nav>
