@@ -3,20 +3,19 @@ class Application.Services.ContactsSearch extends Transponder.Service
   module: 'application'
 
   init: ->
-    search_field     = @element.find('#search-field')
-    search_field.on 'keyup', @submitSearch
+    @element.on 'keyup', "#search-field", @submitSearch
 
-  search: _.debounce (=> 
+  search: _.debounce ( (e) -> 
+    field = @element.find('#search-field')
     $.ajax 
-      url: $('#search-field').parent().prop('action')
+      url: @element.prop('action')
       dataType: 'script'
       data: 
-        query: $('#search-field').val()
+        query: field.val()
   ), 600
 
-  submitSearch: =>
-    @search()
+  submitSearch: (field) =>
+    @search(field)
 
   serve: ->
     @init()
-    # add your code here

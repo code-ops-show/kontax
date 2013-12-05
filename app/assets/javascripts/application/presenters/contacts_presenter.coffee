@@ -3,7 +3,6 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
   module: 'application'
 
   index: ->
-    console.log @element
     $(@element).html(@response)
 
   edit: ->
