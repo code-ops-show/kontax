@@ -24,5 +24,10 @@ Application.services_manifest = ->
 Application.run_ready = ->
   Application.services_manifest()
 
+# setup progress bar for turbolinks
+$(document).on 'page:fetch',   -> NProgress.start()
+$(document).on 'page:change',  ->  NProgress.done()
+$(document).on 'page:restore', ->  NProgress.remove()
+
 $(document).ready Application.run_ready
 $(document).on 'page:load', Application.run_ready

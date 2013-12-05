@@ -4,6 +4,7 @@
 #= require turbolinks
 #= require transponder
 #= require bootstrap
+#= require nprogress
 
 # this part boots up the transponder module
 #= require application/loader
