@@ -9,7 +9,7 @@ gem 'pg'
 gem 'pry'
 gem 'bootstrap-sass', '~> 3.0.2.0'
 
-gem 'transponder', path: '/Users/zacksiri/Repositories/transponder'
+gem 'transponder', '~> 0.9.6'
 gem 'pg_search'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
