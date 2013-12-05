@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   respond_to :json, :html, :js
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.search(params[:query])
     respond_with @contacts
   end
 

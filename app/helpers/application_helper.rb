@@ -5,4 +5,12 @@ module ApplicationHelper
       link_to text, path
     end
   end
+
+  def render_collection_with type, collection
+    if collection.present?
+      render partial: type, collection: collection
+    else
+      render "#{type.pluralize}/none"
+    end
+  end
 end

@@ -5,6 +5,7 @@
 #= require transponder
 #= require bootstrap
 #= require nprogress
+#= require underscore
 
 # this part boots up the transponder module
 #= require application/loader

@@ -5,3 +5,4 @@ new Application.Presenters.ContactPresenter()
 
 
 # services
+new Application.Services.ContactsSearch()

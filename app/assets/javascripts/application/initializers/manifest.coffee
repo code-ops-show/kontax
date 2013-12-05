@@ -1,4 +1,5 @@
 Application.services_manifest = ->
+  $('body').trigger 'application:services:contacts_search'
   # fill in your manifest here
   # example:
   # if you want to trigger a service on your entire app
