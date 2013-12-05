@@ -34,6 +34,15 @@ class ContactsController < ApplicationController
     end
   end
 
+  def destroy
+    @contact = Contact.where(id: params[:id]).first
+    if @contact.destroy
+      respond_with @contact
+    else
+      xms_error @contact
+    end
+  end
+
 private
   def contact_params
     params.require(:contact).permit(:name, :email)

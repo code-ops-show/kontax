@@ -28,6 +28,8 @@ Application.run_ready = ->
 $(document).on 'page:fetch',   -> NProgress.start()
 $(document).on 'page:change',  ->  NProgress.done()
 $(document).on 'page:restore', ->  NProgress.remove()
+$(document).on 'ajax:beforeSend', -> NProgress.start()
+$(document).on 'ajax:complete', ->   NProgress.done()
 
 $(document).ready Application.run_ready
 $(document).on 'page:load', Application.run_ready

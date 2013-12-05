@@ -20,6 +20,10 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
     $(@element).replaceWith(@response)
     $('#modal-box').modal('toggle')
 
+  destroy: ->
+    $(@element).fadeOut 500, ->
+      $(@element).remove()
+
   error: 
     update: (errors, element) ->
       for key, value of errors
