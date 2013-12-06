@@ -13,14 +13,14 @@ class ContactsController < ApplicationController
 
   def show
     @contact = Contact.where(id: params[:id]).first
-    cased_response
+    cased_response(params[:notify])
   end
 
   def create 
     @contact = Contact.new(contact_params)
     if @contact.save
       cased_response
-      push_change
+      push_notify
     else
       xms_error @contact
     end
@@ -34,8 +34,8 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.where(id: params[:id]).first
     if @contact.update_attributes(contact_params)
-      cased_response
-      push_change
+      cased_response(params[:case])
+      push_notify
     else
       xms_error @contact
     end
@@ -45,24 +45,59 @@ class ContactsController < ApplicationController
     @contact = Contact.where(id: params[:id]).first
     if @contact.move_to_trash
       cased_response
-      push_change
+      push_notify
     else
       xms_error @contact
     end
   end
 
 private
-  def cased_response
-    if params[:case].present?
-      render params[:case]
+
+  def cased_response(cased_param = nil)
+    # :case and :notify will always come at different times
+    if cased_param.present? 
+      render cased_param
     else
       respond_with @contact
     end
   end
 
-  def push_change
-    Pusher.trigger_async("contacts", "change", { resource: 'contacts', id: @contact.id, case: params[:case] })
+  def base_notify_data
+    { resource: 'contacts', id: @contact.id, who: session[:who], case: params[:case] }
   end
+
+  def index_notify_data
+    base_notify_data.merge({ action: action_name })
+  end
+
+  def trashed_notify_data
+    _action_name = 
+      if action_name == 'update' and params[:case].present? and params[:case] == 'untrashed'
+        'destroy'
+      elsif action_name == 'update' and params[:case].present? and params[:case] == 'trashed'
+        'create'
+      end
+    base_notify_data.merge({ action: _action_name })
+  end
+
+  def push_notify
+    push_index
+    push_trashed
+  end
+
+  def push_index
+    Pusher.trigger_async("contacts", "index", index_notify_data)
+  end
+
+  def push_trashed
+    Pusher.trigger_async("contacts", "trashed", trashed_notify_data)
+  end
+
+  def contacts_event
+    params[:case].present? ? "trashed" : "index"
+  end
+
+  helper_method :contacts_event
 
   def scoped_contacts
     if params[:case].present? and params[:case] == 'trashed'

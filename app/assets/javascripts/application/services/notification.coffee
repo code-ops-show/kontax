@@ -10,9 +10,12 @@ class Application.Services.Notification extends Transponder.Service
 
     channel = pusher.subscribe(channel_name)
     channel.bind event_name, (data) ->
-      $.ajax
-        url: AHB.basePath(data) # this is using the helper
-        dataType: 'script'
+      @getDelta(data) unless data.who == gon.who
+    
+  getDelta: (data) ->
+    $.ajax
+      url: AHB.basePath(data) # this is using the helper
+      dataType: 'script'
 
   serve: ->
     @init()

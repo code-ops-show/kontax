@@ -6,8 +6,4 @@ module ContactsHelper
       'All Contacts'
     end
   end
-
-  def contacts_channel
-    params[:case].present? ? "#{params[:case]}_contacts" : "contacts"
-  end
 end

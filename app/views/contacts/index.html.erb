@@ -1,4 +1,4 @@
 <h1><%= contacts_heading %></h1>
-<%= content_tag :div, id: 'contacts', class: 'row notification', data: { channel: contacts_channel, event: 'change'} do %>
+<%= content_tag :div, id: 'contacts', class: 'row notification', data: { channel: "contacts", event: contacts_event} do %>
   <%= render_collection_with "contact", @contacts %>
 <% end %>

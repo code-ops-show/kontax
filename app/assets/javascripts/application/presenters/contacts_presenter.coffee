@@ -18,11 +18,11 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
 
   create: ->
     $(@element).append(@response)
-    $("#modal-box").modal('toggle')
+    $("#modal-box").modal('hide')
 
   update: ->
     $(@element).replaceWith(@response)
-    $('#modal-box').modal('toggle')
+    $('#modal-box').modal('hide')
 
   destroy: ->
     $(@element).fadeOut 500, ->
@@ -30,8 +30,8 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
     toastr.info("Moved to Trash <a href='/contacts/case/trashed'>View Trashed Contacts</a>")
 
   untrash: ->
-    # remove from the trash page
-    @destroy()
+    $(@element).fadeOut 500, ->
+      $(@element).remove()
     toastr.info("Your contact has been put back <a href='/contacts'>View All Contacts</a>")
 
   error: 
