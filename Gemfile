@@ -11,6 +11,8 @@ gem 'bootstrap-sass', '~> 3.0.2.0'
 
 gem 'transponder', '~> 0.9.6'
 gem 'pg_search'
+gem 'pusher'
+gem 'gon'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -38,6 +40,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :development do 
   gem 'quiet_assets'

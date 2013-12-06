@@ -7,6 +7,7 @@
 #= require nprogress
 #= require underscore
 #= require toastr
+#= require pusher
 
 # this part boots up the transponder module
 #= require application/loader

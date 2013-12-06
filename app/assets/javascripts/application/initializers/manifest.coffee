@@ -1,4 +1,5 @@
 Application.services_manifest = ->
+  $('body.contacts.index').trigger 'application:services:notification'
   $('body.contacts.index').trigger 'application:services:contacts_search'
   # fill in your manifest here
   # example:

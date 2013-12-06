@@ -8,13 +8,19 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    respond_with @contact
+    cased_response
+  end
+
+  def show
+    @contact = Contact.where(id: params[:id]).first
+    cased_response
   end
 
   def create 
     @contact = Contact.new(contact_params)
     if @contact.save
-      respond_with @contact
+      cased_response
+      push_change
     else
       xms_error @contact
     end
@@ -22,13 +28,14 @@ class ContactsController < ApplicationController
 
   def edit
     @contact = Contact.where(id: params[:id]).first
-    respond_with @contact
+    cased_response
   end
 
   def update
     @contact = Contact.where(id: params[:id]).first
     if @contact.update_attributes(contact_params)
       cased_response
+      push_change
     else
       xms_error @contact
     end
@@ -37,7 +44,8 @@ class ContactsController < ApplicationController
   def destroy
     @contact = Contact.where(id: params[:id]).first
     if @contact.move_to_trash
-      respond_with @contact
+      cased_response
+      push_change
     else
       xms_error @contact
     end
@@ -50,6 +58,10 @@ private
     else
       respond_with @contact
     end
+  end
+
+  def push_change
+    Pusher.trigger_async("contacts", "change", { resource: 'contacts', id: @contact.id, case: params[:case] })
   end
 
   def scoped_contacts

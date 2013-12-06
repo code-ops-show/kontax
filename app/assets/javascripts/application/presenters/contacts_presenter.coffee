@@ -10,6 +10,9 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
     $(@element).html(@response)
     $(@element).modal()
 
+  show: ->
+    $(@element).replaceWith(@response)
+
   new: ->
     @edit()
 

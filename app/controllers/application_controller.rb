@@ -4,4 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Transponder::Transmission
+
+  before_filter :set_gon_pusher
+
+  def set_gon_pusher
+    gon.pusher  = { key: ENV['PUSHER_KEY'] }
+  end
 end
