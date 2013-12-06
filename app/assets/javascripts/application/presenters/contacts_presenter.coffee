@@ -24,6 +24,7 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
   destroy: ->
     $(@element).fadeOut 500, ->
       $(@element).remove()
+    toastr.info("Moved to Trash <a href='/contacts/case/trashed'>View Trashed Contacts</a>")
 
   untrash: ->
     # remove from the trash page
