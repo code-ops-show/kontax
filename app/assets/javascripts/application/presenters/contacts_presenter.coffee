@@ -1,6 +1,7 @@
 class Application.Presenters.ContactPresenter extends Transponder.Presenter
   presenterName: 'contacts'
   module: 'application'
+  actions: ['index', 'edit', 'new', 'create', 'update', 'destroy', 'untrash']
 
   index: ->
     $(@element).html(@response)
@@ -23,6 +24,11 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
   destroy: ->
     $(@element).fadeOut 500, ->
       $(@element).remove()
+
+  untrash: ->
+    # remove from the trash page
+    @destroy()
+    toastr.info("Your contact has been put back <a href='/contacts'>View All Contacts</a>")
 
   error: 
     update: (errors, element) ->

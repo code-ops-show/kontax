@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   respond_to :json, :html, :js
 
   def index
-    @contacts = Contact.search(params[:query])
+    @contacts = scoped_contacts
     respond_with @contacts
   end
 
@@ -28,7 +28,7 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.where(id: params[:id]).first
     if @contact.update_attributes(contact_params)
-      respond_with @contact
+      cased_response
     else
       xms_error @contact
     end
@@ -36,7 +36,7 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact = Contact.where(id: params[:id]).first
-    if @contact.destroy
+    if @contact.move_to_trash
       respond_with @contact
     else
       xms_error @contact
@@ -44,7 +44,23 @@ class ContactsController < ApplicationController
   end
 
 private
+  def cased_response
+    if params[:case].present?
+      render params[:case]
+    else
+      respond_with @contact
+    end
+  end
+
+  def scoped_contacts
+    if params[:case].present? and params[:case] == 'trashed'
+      Contact.trashed.search(params[:query])
+    else
+      Contact.not_trashed.search(params[:query])
+    end
+  end
+
   def contact_params
-    params.require(:contact).permit(:name, :email)
+    params.require(:contact).permit(:name, :email, :trash)
   end
 end

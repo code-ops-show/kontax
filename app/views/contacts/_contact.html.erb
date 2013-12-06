@@ -7,8 +7,7 @@
       <%= contact.email %>
     </div>
     <div class='actions'>
-      <%= link_to "Edit", edit_contact_path(contact), remote: true, class: 'btn btn-xs btn-default' %>
-      <%= link_to "Delete", contact_path(contact), method: :delete, remote: true, class: 'btn btn-xs btn-default' %>
+      <%= render "contacts/actions/#{contact.status}", contact: contact %>
     </div>
   </div>
 <% end %>
