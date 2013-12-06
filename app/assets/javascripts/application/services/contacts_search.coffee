@@ -12,9 +12,12 @@ class Application.Services.ContactsSearch extends Transponder.Service
       dataType: 'script'
       data: 
         query: field.val()
+      success: ->
+        NProgress.done()
   ), 600
 
   submitSearch: (field) =>
+    NProgress.start()
     @search(field)
 
   serve: ->
