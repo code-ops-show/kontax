@@ -69,12 +69,6 @@ private
     Pusher.trigger_async("contacts", "index", notify_data)
   end
 
-  def contacts_event
-    params[:scope].present? ? params[:scope] : "index"
-  end
-
-  helper_method :contacts_event
-
   def scoped_contacts
     if params[:scope].present? and params[:scope] == 'trashed'
       Contact.trashed.search(params[:query])
