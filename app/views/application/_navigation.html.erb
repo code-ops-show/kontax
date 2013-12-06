@@ -15,7 +15,7 @@
       <ul class="nav navbar-nav">
         <%= activeable_nav('Contacts', contacts_path) %>
       </ul>
-      <%= form_tag contacts_path, class: 'navbar-form navbar-left contacts_search', remote: true do %>
+      <%= form_tag contacts_path, class: 'navbar-form navbar-left contacts_search hide', remote: true do %>
         <div class='form-group'>
           <%= text_field_tag :query, nil,class: 'form-control', placeholder: "Search for someone", id: 'search-field' %>
         </div>

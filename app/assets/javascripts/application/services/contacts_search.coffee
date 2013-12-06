@@ -3,9 +3,12 @@ class Application.Services.ContactsSearch extends Transponder.Service
   module: 'application'
 
   init: ->
+    @element.hide()
+    @element.removeClass('hide')
+    @element.fadeIn()
     @element.on 'keyup', "#search-field", @submitSearch
 
-  search: _.debounce ( (e) -> 
+  search: _.debounce (->
     field = @element.find('#search-field')
     $.ajax 
       url: @element.prop('action')
@@ -16,9 +19,9 @@ class Application.Services.ContactsSearch extends Transponder.Service
         NProgress.done()
   ), 600
 
-  submitSearch: (field) =>
+  submitSearch: =>
     NProgress.start()
-    @search(field)
+    @search()
 
   serve: ->
     @init()
