@@ -1,7 +1,7 @@
 class Application.Presenters.ContactPresenter extends Transponder.Presenter
   presenterName: 'contacts'
   module: 'application'
-  actions: ['index', 'edit', 'new', 'create', 'update', 'destroy', 'untrash']
+  actions: ['index', 'edit', 'new', 'create', 'update', 'destroy', 'untrash', 'show']
 
   index: ->
     $(@element).html(@response)
