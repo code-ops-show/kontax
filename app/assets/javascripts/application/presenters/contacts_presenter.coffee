@@ -22,7 +22,7 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
     toastr.success(@response.notification)
 
   update: ->
-    $(@element).replaceWith(@response)
+    $(@element).replaceWith(@response.content)
     $('#modal-box').modal('hide')
     toastr.success(@response.notification)
 
