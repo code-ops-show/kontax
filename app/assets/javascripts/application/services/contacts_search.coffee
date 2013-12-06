@@ -12,7 +12,7 @@ class Application.Services.ContactsSearch extends Transponder.Service
       dataType: 'script'
       data: 
         query: field.val()
-      success: ->
+      complete: ->
         NProgress.done()
   ), 600
 
