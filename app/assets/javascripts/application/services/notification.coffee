@@ -9,7 +9,7 @@ class Application.Services.Notification extends Transponder.Service
     event_name   = @element.data('event')
 
     channel = pusher.subscribe(channel_name)
-    channel.bind event_name, (data) ->
+    channel.bind event_name, (data) =>
       @getDelta(data) unless data.who == gon.who
     
   getDelta: (data) ->

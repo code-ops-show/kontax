@@ -1,1 +1,4 @@
-["#contacts", "<%= xms_event(action: params[:notify]) %>", "<%= j render @contact %>"]
+["#contacts", "<%= xms_event(action: params[:notify]) %>", 
+  { "content" : "<%= j render @contact %>", 
+    "notification" : "<%= j render 'notification' %>"
+    }]

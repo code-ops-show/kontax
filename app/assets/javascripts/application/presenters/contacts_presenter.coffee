@@ -17,22 +17,24 @@ class Application.Presenters.ContactPresenter extends Transponder.Presenter
     @edit()
 
   create: ->
-    $(@element).append(@response)
+    $(@element).append(@response.content)
     $("#modal-box").modal('hide')
+    toastr.success(@response.notification)
 
   update: ->
     $(@element).replaceWith(@response)
     $('#modal-box').modal('hide')
+    toastr.success(@response.notification)
 
   destroy: ->
     $(@element).fadeOut 500, ->
       $(@element).remove()
-    toastr.info("Moved to Trash <a href='/contacts/case/trashed'>View Trashed Contacts</a>")
+    toastr.info(@response.notification)
 
   untrash: ->
     $(@element).fadeOut 500, ->
       $(@element).remove()
-    toastr.info("Your contact has been put back <a href='/contacts'>View All Contacts</a>")
+    toastr.info(@response.notification)
 
   error: 
     update: (errors, element) ->

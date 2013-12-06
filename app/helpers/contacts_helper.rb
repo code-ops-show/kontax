@@ -6,4 +6,8 @@ module ContactsHelper
       'All Contacts'
     end
   end
+
+  def contacts_event
+    params[:scope].present? ? params[:scope] : "index"
+  end
 end

@@ -8,18 +8,18 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    cased_response
+    respond_with @contact
   end
 
   def show
     @contact = Contact.where(id: params[:id]).first
-    cased_response(params[:notify])
+    notification_response
   end
 
   def create 
     @contact = Contact.new(contact_params)
     if @contact.save
-      cased_response
+      respond_with @contact
       push_notify
     else
       xms_error @contact
@@ -28,13 +28,13 @@ class ContactsController < ApplicationController
 
   def edit
     @contact = Contact.where(id: params[:id]).first
-    cased_response
+    respond_with @contact
   end
 
   def update
     @contact = Contact.where(id: params[:id]).first
     if @contact.update_attributes(contact_params)
-      cased_response(params[:case])
+      respond_with @contact
       push_notify
     else
       xms_error @contact
@@ -44,7 +44,7 @@ class ContactsController < ApplicationController
   def destroy
     @contact = Contact.where(id: params[:id]).first
     if @contact.move_to_trash
-      cased_response
+      respond_with @contact
       push_notify
     else
       xms_error @contact
@@ -53,54 +53,30 @@ class ContactsController < ApplicationController
 
 private
 
-  def cased_response(cased_param = nil)
-    # :case and :notify will always come at different times
-    if cased_param.present? 
-      render cased_param
+  def notification_response
+    if params[:notify].present? 
+      render params[:notify]
     else
       respond_with @contact
     end
   end
 
-  def base_notify_data
-    { resource: 'contacts', id: @contact.id, who: session[:who], case: params[:case] }
-  end
-
-  def index_notify_data
-    base_notify_data.merge({ action: action_name })
-  end
-
-  def trashed_notify_data
-    _action_name = 
-      if action_name == 'update' and params[:case].present? and params[:case] == 'untrashed'
-        'destroy'
-      elsif action_name == 'update' and params[:case].present? and params[:case] == 'trashed'
-        'create'
-      end
-    base_notify_data.merge({ action: _action_name })
+  def notify_data
+    { resource: 'contacts', id: @contact.id, action: action_name, who: session[:who] }
   end
 
   def push_notify
-    push_index
-    push_trashed
-  end
-
-  def push_index
-    Pusher.trigger_async("contacts", "index", index_notify_data)
-  end
-
-  def push_trashed
-    Pusher.trigger_async("contacts", "trashed", trashed_notify_data)
+    Pusher.trigger_async("contacts", "index", notify_data)
   end
 
   def contacts_event
-    params[:case].present? ? "trashed" : "index"
+    params[:scope].present? ? params[:scope] : "index"
   end
 
   helper_method :contacts_event
 
   def scoped_contacts
-    if params[:case].present? and params[:case] == 'trashed'
+    if params[:scope].present? and params[:scope] == 'trashed'
       Contact.trashed.search(params[:query])
     else
       Contact.not_trashed.search(params[:query])
