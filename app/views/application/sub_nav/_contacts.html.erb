@@ -1,0 +1,17 @@
+<%= form_tag request.path, class: 'navbar-form navbar-left contacts_search hide', remote: true do %>
+  <div class='form-group'>
+    <%= text_field_tag :query, nil,class: 'form-control', placeholder: "Search for someone", id: 'search-field' %>
+  </div>
+<% end %>
+<ul class='nav navbar-nav navbar-right'>
+  <li>
+    <%= link_to new_contact_path, remote: true do %>
+      <span class='glyphicon glyphicon-plus'></span> Add Contact
+    <% end %>
+  </li>
+  <li>
+    <%= link_to case_contacts_path('trashed') do %>
+      <span class='glyphicon glyphicon-trash'></span>
+    <% end %>
+  </li>
+</ul>

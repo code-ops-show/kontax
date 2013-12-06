@@ -13,4 +13,8 @@ module ApplicationHelper
       render "#{type.pluralize}/none"
     end
   end
+
+  def render_sub_nav
+    request.path.match(/(contacts)/) { |m| render "application/sub_nav/" + m.to_s }
+  end
 end
