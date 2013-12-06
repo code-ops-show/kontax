@@ -1,0 +1,4 @@
+<%= form_for contact, url: case_contact_path(contact, 'untrash'), remote: true do |f| %>
+  <%= f.hidden_field :trash, value: false %>
+  <%= f.submit "Put Back", class: 'btn btn-xs btn-default' %>
+<% end %> 
