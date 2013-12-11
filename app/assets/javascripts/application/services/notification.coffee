@@ -7,7 +7,7 @@ class Application.Services.Notification extends Transponder.Service
     event_name   = @element.data('event')
 
     channel = if AHP.channel(channel_name)
-                APH.channel(channel_name)
+                AHP.channel(channel_name)
               else
                 AHP.subscribe(channel_name)
 
