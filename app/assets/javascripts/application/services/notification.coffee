@@ -3,14 +3,18 @@ class Application.Services.Notification extends Transponder.Service
   module: 'application'
 
   init: ->
-    pusher = new Pusher(gon.pusher.key, { encrypted: true })
-
     channel_name = @element.data('channel')
     event_name   = @element.data('event')
 
-    channel = pusher.subscribe(channel_name)
-    channel.bind event_name, (data) =>
-      @getDelta(data) unless data.who == gon.who
+    subscribed_channels = []
+    unless jQuery.isEmptyObject(AHP.channels)
+      for key, value of AHP.channels.channels
+        subscribed_channels.push(key) 
+
+    unless channel_name in subscribed_channels
+      channel = AHP.subscribe(channel_name)
+      channel.bind event_name, (data) =>
+        @getDelta(data) unless data.who == gon.who
     
   getDelta: (data) ->
     $.ajax
