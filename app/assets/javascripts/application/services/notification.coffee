@@ -11,11 +11,14 @@ class Application.Services.Notification extends Transponder.Service
               else
                 AHP.subscribe(channel_name)
 
-    channel.bind 'pusher:subscription_succeeded', =>
-      channel.bind event_name, (data) =>
-        @getDelta(data) unless data.who == gon.who
+    channel.bind event_name, @pusherCallback
+
+    $(document).on 'page:fetch', => 
+      channel.unbind event_name, @pusherCallback
 
 
+  pusherCallback: (data) =>
+    @getDelta(data) unless data.who == gon.who
     
   getDelta: (data) ->
     $.ajax
