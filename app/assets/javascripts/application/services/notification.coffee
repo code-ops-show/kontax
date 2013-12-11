@@ -6,6 +6,7 @@ class Application.Services.Notification extends Transponder.Service
     channel_name = @element.data('channel')
     event_name   = @element.data('event')
 
+    console.log 
     subscribed_channels = []
     unless jQuery.isEmptyObject(AHP.channels)
       for key, value of AHP.channels.channels
@@ -13,8 +14,14 @@ class Application.Services.Notification extends Transponder.Service
 
     unless channel_name in subscribed_channels
       channel = AHP.subscribe(channel_name)
+    else
+      channel = AHP.channel(channel_name)
+      
+    channel.bind 'pusher:subscription_succeeded', =>
       channel.bind event_name, (data) =>
         @getDelta(data) unless data.who == gon.who
+
+
     
   getDelta: (data) ->
     $.ajax
